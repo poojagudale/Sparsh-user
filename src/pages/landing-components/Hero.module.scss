@@ -1,0 +1,191 @@
+@use 'sass:color';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.heroSection {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(ellipse at top right, $color-light-lavender 0%, $color-cream-white 50%, $color-white 100%);
+  padding-top: 80px;
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: $color-soft-blush;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.6;
+    top: -150px;
+    left: -150px;
+    z-index: 0;
+  }
+}
+
+.heroContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+
+  @include desktop {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 80px;
+  }
+}
+
+.heroContent {
+  width: 100%;
+
+  @include desktop {
+    width: 50%;
+  }
+}
+
+.glassCard {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 32px;
+  padding: 50px;
+  box-shadow: $shadow-soft;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.15;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.5px;
+
+  @include tablet {
+    font-size: 60px;
+  }
+}
+
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: $text-secondary;
+  margin: 0 0 40px 0;
+  font-weight: 300;
+
+  @include tablet {
+    font-size: 19px;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include tablet {
+    flex-direction: row;
+  }
+}
+
+.primaryBtn {
+  background: $color-rose-gold;
+  color: $color-white;
+  border: none;
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: $border-radius-button;
+  box-shadow: 0 8px 25px rgba(216, 164, 169, 0.35);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.4s ease;
+
+  &:hover {
+    background: color.adjust($color-rose-gold, $lightness: -8%);
+    box-shadow: 0 12px 30px rgba(216, 164, 169, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btnIcon {
+    font-size: 12px;
+    transition: transform 0.3s;
+  }
+
+  &:hover .btnIcon {
+    transform: translateX(4px);
+  }
+}
+
+.secondaryBtn {
+  background: transparent;
+  color: $text-dark;
+  border: 1px solid rgba(58, 47, 47, 0.2);
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: $border-radius-button;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: $text-dark;
+  }
+}
+
+.heroImageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @include desktop {
+    width: 50%;
+    justify-content: flex-end;
+  }
+}
+
+.imageDecoration {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -24px;
+    right: -24px;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    background: $color-rose-beige;
+    z-index: -1;
+  }
+}
+
+.heroImg {
+  width: 100%;
+  height: auto;
+  border-radius: 40px;
+  box-shadow: $shadow-hover;
+  object-fit: cover;
+  display: block;
+}

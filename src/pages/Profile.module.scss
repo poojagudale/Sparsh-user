@@ -1,0 +1,545 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ─────────────────────────────────────────────────────────────────
+// Profile — Full width layout aligned with Home & Bookings (1200px)
+// ─────────────────────────────────────────────────────────────────
+
+.container {
+  width: 100%;
+}
+
+// ── Page header — left-aligned, matches Bookings & Services ──────
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.pageTitle {
+  font-family: $font-serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 6px;
+  text-align: left;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: $text-muted;
+  margin: 0;
+  text-align: left;
+  line-height: 1.5;
+}
+
+// ── Banner for Profile Not Found (Case B) ─────────────────────────
+.notFoundBanner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background: #FFF5F7;
+  border: 1.5px solid rgba(216, 164, 169, 0.4);
+  border-radius: $border-radius-card;
+  margin-bottom: 24px;
+  width: 100%;
+  box-shadow: 0 2px 12px rgba(216, 164, 169, 0.08);
+
+  .bannerIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: $color-rose-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-rose-primary;
+    flex-shrink: 0;
+  }
+
+  .bannerContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .bannerTitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: $color-rose-deeper;
+    margin: 0;
+  }
+
+  .bannerText {
+    font-size: 13.5px;
+    color: $text-secondary;
+    line-height: 1.5;
+    margin: 0;
+
+    strong {
+      color: $text-dark;
+      font-weight: 600;
+    }
+  }
+}
+
+// ── Error State (Network / Server Error) ──────────────────────────
+.errorCard {
+  width: 100%;
+  background: $color-surface;
+  border-radius: $border-radius-card;
+  border: 1.5px solid rgba(248, 113, 113, 0.35);
+  box-shadow: $shadow-card;
+  padding: 44px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.errorIcon {
+  width: 52px;
+  height: 52px;
+  background: #fee2e2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+  margin-bottom: 18px;
+}
+
+.errorTitle {
+  font-family: $font-serif;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 8px;
+  text-align: left;
+}
+
+.errorText {
+  font-size: 14.5px;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  text-align: left;
+  max-width: 640px;
+}
+
+.errorActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+// ── Loading state ──────────────────────────────────────────────────
+.loadingCard {
+  width: 100%;
+  background: $color-surface;
+  border-radius: $border-radius-card;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-card;
+  padding: 80px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3.5px solid $color-rose-light;
+  border-top-color: $color-rose-primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-bottom: 16px;
+}
+
+.loadingText {
+  color: $text-muted;
+  font-size: 14.5px;
+  margin: 0;
+}
+
+// ── Profile card — 100% width of the 1200px container ─────────────
+.profileCard {
+  width: 100%;
+  background: $color-surface;
+  border-radius: $border-radius-card;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+// ── Card header ────────────────────────────────────────────────────
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 28px;
+  background: $color-rose-lighter;
+  border-bottom: 1px solid $color-border;
+
+  @include mobile {
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  @include tablet {
+    padding: 24px 36px;
+  }
+}
+
+.cardHeaderInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.avatarLarge {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  background: $color-rose-light;
+  border: 2px solid rgba(216, 164, 169, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-rose-deeper;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(176, 122, 128, 0.12);
+}
+
+.avatarLargeImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.avatarLargeInitials {
+  font-family: $font-sans;
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-rose-deeper;
+  letter-spacing: 0.5px;
+}
+
+.customerName {
+  font-family: $font-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.customerMobile {
+  font-size: 13px;
+  color: $text-muted;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.editBtn {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  background: $color-surface;
+  color: $color-rose-deeper;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-button;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+  }
+
+  &:hover {
+    background: $color-rose-primary;
+    color: $color-surface;
+    border-color: $color-rose-primary;
+  }
+}
+
+// ── Field sections container ──────────────────────────────────────
+.fieldSections {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px 8px;
+
+  @include tablet {
+    padding: 28px 36px 12px;
+  }
+}
+
+.sectionGroup {
+  padding-bottom: 24px;
+  margin-bottom: 4px;
+
+  & + & {
+    border-top: 1px solid $color-border;
+    padding-top: 22px;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-sans;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: $color-rose-deeper;
+  margin: 0 0 16px;
+  text-align: left;
+}
+
+// ── Responsive grids inside each section ─────────────────────────
+.fieldsGridThreeCol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.fieldsGridTwoCol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.labelIcon {
+  display: flex;
+  align-items: center;
+  color: $color-rose-primary;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: $text-secondary;
+  letter-spacing: 0.2px;
+}
+
+.required {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.input {
+  @include input-base;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 14px;
+
+  &.inputError {
+    border-color: #f87171;
+    background: rgba(254, 242, 242, 0.5);
+  }
+}
+
+.inputReadOnly {
+  @include input-base;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 14px;
+  cursor: default;
+  user-select: text;
+  background: $color-rose-lighter;
+  border-color: $color-border;
+  color: $text-dark;
+  font-weight: 500;
+
+  &:focus {
+    border-color: $color-border;
+    box-shadow: none;
+    background: $color-rose-lighter;
+  }
+
+  &::placeholder { color: $text-muted; opacity: 0.7; }
+}
+
+.errorMsg {
+  font-size: 11.5px;
+  color: #dc2626;
+  margin-top: 3px;
+  text-align: left;
+}
+
+.fieldNote {
+  font-size: 11.5px;
+  color: $text-muted;
+  font-style: italic;
+  margin-top: 3px;
+  text-align: left;
+}
+
+// ── Marital status pills ──────────────────────────────────────────
+.pillGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.pillBtn {
+  flex: 1;
+  height: 40px;
+  border-radius: $border-radius-chip;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  border: 1.5px solid $color-border;
+  background: $color-surface;
+  color: $text-secondary;
+  transition: all 0.2s;
+  max-width: 120px;
+
+  &:hover:not(.pillBtnActive) {
+    border-color: $color-rose-primary;
+    background: $color-rose-lighter;
+    color: $text-dark;
+  }
+
+  &.pillBtnActive {
+    background: $color-rose-primary;
+    border-color: $color-rose-primary;
+    color: $color-surface;
+    box-shadow: 0 2px 8px rgba(216, 164, 169, 0.38);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-rose-primary;
+    outline-offset: 2px;
+  }
+}
+
+// ── Action row ────────────────────────────────────────────────────
+.actionRow {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 20px 28px 28px;
+  border-top: 1px solid $color-border;
+  flex-wrap: wrap;
+
+  @include tablet {
+    padding: 22px 36px 30px;
+  }
+}
+
+// ── Buttons ───────────────────────────────────────────────────────
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 26px;
+  height: 44px;
+  background: $color-rose-primary;
+  color: $color-surface;
+  border: none;
+  border-radius: $border-radius-button;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(216, 164, 169, 0.32);
+
+  &:hover:not(:disabled) {
+    background: $color-rose-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(216, 164, 169, 0.42);
+  }
+  &:active:not(:disabled) { transform: translateY(0); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+.cancelBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  height: 44px;
+  background: $color-surface;
+  color: $text-secondary;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-button;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background: $color-rose-lighter;
+    border-color: $color-rose-primary;
+    color: $text-dark;
+  }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.btnLoader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: $color-surface;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,118 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.servicesSection {
+  background: $color-cream-white;
+  padding: 100px 0;
+}
+
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.sectionLabel {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $color-rose-gold;
+  letter-spacing: 4px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: $text-dark;
+  font-weight: 600;
+  margin: 0;
+
+  @include tablet {
+    font-size: 52px;
+  }
+}
+
+.headingDivider {
+  width: 40px;
+  height: 2px;
+  background: $color-rose-gold;
+  margin: 24px auto 0 auto;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.serviceCard {
+  background: $surface-light;
+  padding: 50px 40px;
+  border-radius: 30px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: $shadow-soft;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: $shadow-hover;
+    background: $color-white;
+  }
+}
+
+.serviceIconWrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: $color-soft-blush;
+  color: $color-rose-gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 30px;
+  transition: all 0.4s ease;
+
+  .serviceCard:hover & {
+    background: $color-rose-gold;
+    color: $color-white;
+    transform: scale(1.1);
+  }
+}
+
+.serviceCardTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 16px 0;
+}
+
+.serviceCardDesc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: $text-secondary;
+  margin: 0;
+  font-weight: 300;
+}

@@ -1,0 +1,151 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.testimonialsSection {
+  background: $color-cream-white;
+  padding: 100px 0;
+}
+
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.sectionLabel {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $color-rose-gold;
+  letter-spacing: 4px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: $text-dark;
+  font-weight: 600;
+  margin: 0;
+
+  @include tablet {
+    font-size: 52px;
+  }
+}
+
+.headingDivider {
+  width: 40px;
+  height: 2px;
+  background: $color-rose-gold;
+  margin: 24px auto 0 auto;
+}
+
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonialCard {
+  background: $color-white;
+  padding: 48px 40px;
+  border-radius: 30px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: $shadow-soft;
+  transition: all 0.4s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.starRating {
+  display: flex;
+  gap: 6px;
+}
+
+.starIcon {
+  color: $color-rose-gold; // elegant star color
+  font-size: 14px;
+}
+
+.quoteIcon {
+  color: $color-rose-beige;
+  font-size: 32px;
+  opacity: 0.6;
+}
+
+.testimonialReview {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: $text-secondary;
+  font-style: italic;
+  margin: 0 0 32px 0;
+  flex-grow: 1;
+}
+
+.clientProfile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(58, 47, 47, 0.05);
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: $color-soft-blush;
+  color: $color-rose-gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+}
+
+.clientInfo {
+  .clientName {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-dark;
+    margin: 0 0 4px 0;
+  }
+
+  .clientRole {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: $text-muted;
+    font-weight: 300;
+  }
+}

@@ -1,0 +1,176 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.teamSection {
+  background: $color-white;
+  padding: 100px 0;
+}
+
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.sectionLabel {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $color-rose-gold;
+  letter-spacing: 4px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: $text-dark;
+  font-weight: 600;
+  margin: 0;
+
+  @include tablet {
+    font-size: 52px;
+  }
+}
+
+.headingDivider {
+  width: 40px;
+  height: 2px;
+  background: $color-rose-gold;
+  margin: 24px auto 24px auto;
+}
+
+.sectionSubtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  color: $text-secondary;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.teamCard {
+  background: $color-cream-white;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: $shadow-soft;
+  transition: all 0.4s ease;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-8px);
+
+    .socialOverlay {
+      opacity: 1;
+    }
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.teamImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+
+  .teamCard:hover & {
+    transform: scale(1.05);
+  }
+}
+
+.socialOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(249, 215, 220, 0.85); // soft blush pink
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.socialIcon {
+  width: 44px;
+  height: 44px;
+  background: $color-white;
+  color: $color-rose-gold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $color-rose-gold;
+    color: $color-white;
+    transform: translateY(-3px);
+  }
+}
+
+.teamInfo {
+  padding: 32px 24px;
+}
+
+.memberName {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 8px 0;
+}
+
+.memberRole {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: $color-rose-gold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.memberDesc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}

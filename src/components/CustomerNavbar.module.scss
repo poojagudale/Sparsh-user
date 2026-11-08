@@ -1,0 +1,407 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px rgba(216, 27, 96, 0.06);
+  border-bottom: 1px solid $color-border-light;
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include mobile {
+    padding: 0 16px;
+  }
+}
+
+// ── Logo ──────────────────────────────────────────────────────────
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+  text-decoration: none;
+
+  .logoImg {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid rgba(216, 164, 169, 0.45);
+    box-shadow: 0 2px 8px rgba(216, 164, 169, 0.25);
+    transition: transform 0.25s ease;
+  }
+
+  .logoText {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: $text-dark;
+    transition: color 0.3s ease;
+  }
+
+  &:hover {
+    .logoImg {
+      transform: scale(1.05);
+    }
+    .logoText {
+      color: $color-pink-dark;
+    }
+  }
+
+  @media (max-width: 480px) {
+    gap: 8px;
+
+    .logoImg {
+      height: 36px;
+      width: 36px;
+    }
+
+    .logoText {
+      font-size: 19px;
+      letter-spacing: 1.5px;
+    }
+  }
+}
+
+// ── Desktop nav links ─────────────────────────────────────────────
+.navLinks {
+  display: none;
+  list-style: none;
+  gap: 4px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  @include tablet {
+    display: flex;
+  }
+}
+
+.navItem {
+  display: block;
+  color: $text-secondary;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.4px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+
+  &:hover:not(.active) {
+    color: $text-dark;
+    background: rgba(249, 215, 220, 0.35);
+  }
+
+  &.active {
+    color: $color-pink-dark;
+    background: $color-soft-blush;
+    font-weight: 600;
+  }
+}
+
+// ── User area ─────────────────────────────────────────────────────
+.userArea {
+  position: relative;
+  display: none;
+  align-items: center;
+  gap: 12px;
+
+  @include tablet {
+    display: flex;
+  }
+}
+
+.avatarBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid $color-border-light;
+  background: $color-pink-lighter;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    border-color: $color-pink-primary;
+    box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.2);
+  }
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatarInitials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: $color-pink-dark;
+  background: $color-pink-light;
+  border-radius: 50%;
+}
+
+// ── User dropdown ─────────────────────────────────────────────────
+.userDropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: $color-white;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(58, 47, 47, 0.14);
+  border: 1px solid $color-border-light;
+  min-width: 220px;
+  overflow: hidden;
+  animation: dropdownIn 0.2s ease;
+  z-index: 1001;
+}
+
+.dropdownHeader {
+  padding: 16px 18px 12px;
+  background: $color-pink-lighter;
+}
+
+.dropdownUserRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdownAvatar {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid rgba(244, 143, 177, 0.4);
+  background: $color-pink-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownUserMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdownName {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 2px;
+}
+
+.dropdownEmail {
+  font-size: 12px;
+  color: $text-muted;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdownDivider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid $color-border-light;
+}
+
+.dropdownItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $color-pink-lighter;
+    color: $text-dark;
+  }
+
+  &.logoutItem {
+    color: #c0392b;
+
+    &:hover {
+      background: rgba(192, 57, 43, 0.06);
+    }
+  }
+}
+
+// ── Overlay ───────────────────────────────────────────────────────
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+
+// ── Hamburger ─────────────────────────────────────────────────────
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+
+  @include tablet {
+    display: none;
+  }
+
+  span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: $text-dark;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &.hamburgerOpen {
+    span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    span:nth-child(2) { opacity: 0; }
+    span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  }
+}
+
+// ── Mobile menu ───────────────────────────────────────────────────
+.mobileMenu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 25px rgba(58, 47, 47, 0.06);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  border-bottom: 1px solid $color-border-light;
+  z-index: 999;
+
+  &.mobileMenuOpen { max-height: 500px; }
+
+  @include tablet {
+    display: none;
+  }
+
+  ul {
+    list-style: none;
+    padding: 20px 24px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    li {
+      a {
+        display: block;
+        color: $text-secondary;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 13px 16px;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.25s;
+
+        &:hover, &.mobileActive {
+          background: $color-soft-blush;
+          color: $text-dark;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.mobileUserInfo {
+  padding: 12px 16px 8px !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  span {
+    display: block;
+    font-size: 14px;
+    color: $text-dark;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.mobileAvatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid rgba(244, 143, 177, 0.4);
+  background: $color-pink-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobileLogoutBtn {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(192, 57, 43, 0.08);
+  color: #c0392b;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 8px;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(192, 57, 43, 0.14); }
+}
+
+// ── Animations ────────────────────────────────────────────────────
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

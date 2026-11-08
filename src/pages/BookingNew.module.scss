@@ -1,0 +1,407 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ─────────────────────────────────────────────────────────────────
+// BookingNew — appointment request form + confirmation
+// ─────────────────────────────────────────────────────────────────
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: $background-light;
+  background-image: radial-gradient(ellipse at 60% 0%, rgba(252, 228, 236, 0.45) 0%, transparent 60%);
+  text-align: left;
+}
+
+.main {
+  @include content-wrap(1200px);
+  width: 100%;
+  padding-top: 88px;
+  padding-bottom: 40px;
+  flex: 1;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+// ── Page header ───────────────────────────────────────────────────
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: $text-secondary;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0;
+  margin-bottom: 12px;
+  transition: color 0.2s;
+
+  &:hover { color: $text-dark; }
+}
+
+.pageTitle {
+  font-family: $font-serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 4px;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: $text-muted;
+  margin: 0;
+  line-height: 1.5;
+}
+
+// ── Horizontal card layout ─────────────────────────────────────────
+.horizontalCard {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  @include desktop {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.leftPane {
+  padding: 24px;
+  border-bottom: 1px solid rgba($color-border, 0.5);
+  background: rgba($color-rose-lighter, 0.3);
+
+  @include desktop {
+    flex: 1;
+    border-bottom: none;
+    border-right: 1px solid rgba($color-border, 0.5);
+    padding: 36px 32px;
+  }
+}
+
+.rightPane {
+  padding: 24px;
+  
+  @include desktop {
+    flex: 1.5;
+    padding: 36px 32px;
+  }
+}
+
+.paneTitle {
+  font-family: $font-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 20px;
+}
+
+// ── Service display ───────────────────────────────────────────────
+.serviceDisplay {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: $color-rose-lighter;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.serviceImgWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: $color-rose-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.serviceImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.servicePlaceholder {
+  color: $color-rose-primary;
+}
+
+.serviceInfo {
+  min-width: 0;
+}
+
+.serviceLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 2px;
+}
+
+.serviceName {
+  font-family: $font-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ── Form fields ───────────────────────────────────────────────────
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 8px;
+  font-family: $font-sans;
+}
+
+.dateInput {
+  @include input-base;
+  cursor: pointer;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  filter: opacity(0.5);
+  cursor: pointer;
+}
+
+// ── Period selector ───────────────────────────────────────────────
+.periodOptions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.periodBtn {
+  flex: 1 1 auto;
+  min-width: 100px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 16px;
+  border-radius: $border-radius-button;
+  border: 1.5px solid $color-border;
+  background: $color-surface;
+  color: $text-secondary;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(.periodActive) {
+    background: $color-rose-lighter;
+    border-color: $color-rose-primary;
+    color: $color-rose-deeper;
+  }
+}
+
+.periodActive {
+  background: $color-rose-primary;
+  border-color: $color-rose-primary;
+  color: $color-surface;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(216, 164, 169, 0.35);
+}
+
+.periodIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+// ── Textarea ──────────────────────────────────────────────────────
+.textarea {
+  @include input-base;
+  height: auto;
+  min-height: 90px;
+  padding: 12px 16px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+// ── Validation error ──────────────────────────────────────────────
+.fieldError {
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: 6px;
+  font-family: $font-sans;
+}
+
+// ── Submit button ─────────────────────────────────────────────────
+.submitBtn {
+  @include btn-primary;
+  width: 100%;
+  margin-top: 8px;
+}
+
+// ── Confirmation view ─────────────────────────────────────────────
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba($color-border, 0.5);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.summaryLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-muted;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.summaryValue {
+  font-size: 14px;
+  color: $text-dark;
+  text-align: right;
+  word-break: break-word;
+}
+
+.summaryActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.backButton {
+  @include btn-secondary;
+  flex: 1;
+}
+
+.confirmBtn {
+  @include btn-primary;
+  flex: 1;
+}
+
+// ── Success state ─────────────────────────────────────────────────
+.successCard {
+  @include card;
+  padding: 40px 24px;
+  text-align: center;
+
+  @include tablet {
+    padding: 56px 40px;
+  }
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: #16a34a;
+}
+
+.successTitle {
+  font-family: $font-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 10px;
+}
+
+.successText {
+  font-size: 14px;
+  color: $text-muted;
+  line-height: 1.6;
+  margin: 0 0 8px;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 8px 0 24px;
+}
+
+.statusRequested {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.viewBookingsBtn {
+  @include btn-primary;
+}
+
+// ── Loading / Error ───────────────────────────────────────────────
+.loadingWrap {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid $color-rose-light;
+  border-top-color: $color-rose-primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 14px;
+}
+
+.loadingText {
+  font-size: 14px;
+  color: $text-muted;
+}
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(254, 242, 242, 0.95);
+  color: #991b1b;
+  border-radius: 14px;
+  border: 1px solid #fca5a5;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+// ── Bottom pad ────────────────────────────────────────────────────
+.bottomPad {
+  height: 72px;
+  @include tablet { height: 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

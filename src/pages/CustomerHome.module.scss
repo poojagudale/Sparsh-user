@@ -1,0 +1,480 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.page {
+  background: $color-bg;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.main {
+  flex: 1;
+  padding-top: 88px; // Navbar clearance
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+// ── Hero Section ──────────────────────────────────
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 24px;
+  gap: 40px;
+
+  @include tablet {
+    flex-direction: row;
+    align-items: center;
+    padding: 60px 40px;
+    gap: 60px;
+  }
+}
+
+.heroLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  font-family: $font-sans;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: $color-rose-dark;
+  margin-bottom: 12px;
+}
+
+.heroTitle {
+  font-family: $font-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+.heroText {
+  font-size: 16px;
+  color: $text-secondary;
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+
+.heroDescription {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: $text-secondary;
+  margin: 0 0 18px;
+  max-width: 540px;
+  text-align: left;
+}
+
+.heroHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.highlightPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: $color-rose-lighter;
+  border: 1px solid rgba(216, 164, 169, 0.35);
+  border-radius: $border-radius-chip;
+  font-size: 13px;
+  font-weight: 500;
+  color: $color-rose-deeper;
+  white-space: nowrap;
+}
+
+.highlightDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $color-rose-primary;
+  flex-shrink: 0;
+}
+
+.heroSubText {
+  font-size: 14px;
+  color: $text-muted;
+  margin: 0 0 32px;
+}
+
+.searchContainer {
+  background: $color-surface;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  border: 1px solid rgba(216, 164, 169, 0.2); // rose primary tint
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 10px;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid $color-border;
+  border-radius: 12px;
+  background: #fdfbfb;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  margin-bottom: 16px;
+
+  &:focus-within {
+    border-color: $color-rose-primary;
+  }
+  &.inputRowError {
+    border-color: #ef4444;
+  }
+}
+
+.dialCode {
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-secondary;
+  border-right: 1px solid $color-border;
+  background: rgba(216, 164, 169, 0.15); // rose light
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  flex: 1;
+  height: 48px;
+  padding: 0 12px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+  color: $text-dark;
+
+  &::placeholder { color: $text-muted; }
+}
+
+.searchIconBtn {
+  background: transparent;
+  border: none;
+  padding: 0 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid $color-rose-primary;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.fieldErr {
+  color: #ef4444;
+  font-size: 13px;
+  margin: -8px 0 16px;
+}
+
+.primaryBtn {
+  background: $color-rose-primary;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    background: $color-rose-dark;
+    transform: translateY(-1px);
+  }
+}
+
+.newCustomerText {
+  font-size: 13px;
+  color: $text-muted;
+  text-align: center;
+  margin: 16px 0 0;
+}
+
+.heroRight {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroImg {
+  width: 100%;
+  max-width: 440px;
+  height: 500px;
+  object-fit: cover;
+  // Arch / door shape
+  border-radius: 200px 200px 12px 12px;
+  box-shadow: 0 20px 40px rgba(216, 164, 169, 0.15);
+
+  @include mobile {
+    height: 320px;
+    max-width: 100%;
+    border-radius: 140px 140px 12px 12px;
+  }
+}
+
+// ── Welcome Section ───────────────────────────────
+.welcomeSection {
+  text-align: center;
+  padding: 40px 24px 20px;
+  max-width: 800px;
+}
+
+.sectionTitle {
+  font-family: $font-serif;
+  font-size: 28px;
+  color: $text-dark;
+  margin: 0 0 16px;
+}
+
+.sectionText {
+  font-size: 16px;
+  color: $text-secondary;
+  line-height: 1.6;
+}
+
+// ── Large Wide Image ──────────────────────────────
+.wideImageSection {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px 40px;
+}
+
+.wideImage {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 16px;
+  // Subtle premium pink accent
+  border: 4px solid rgba(216, 164, 169, 0.15);
+  padding: 4px;
+  background-color: rgba(216, 164, 169, 0.08);
+  box-shadow: 0 12px 36px rgba(216, 164, 169, 0.18);
+}
+
+// ── Experience Section ────────────────────────────
+.experienceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px 60px;
+}
+
+.expHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.expTitle {
+  font-family: $font-serif;
+  font-size: 32px;
+  color: $text-dark;
+  margin: 0 0 8px;
+}
+
+.expSubtitle {
+  font-size: 16px;
+  color: $text-secondary;
+  margin: 0;
+}
+
+.inspCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 40px;
+
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.inspCard {
+  display: flex;
+  flex-direction: column;
+  background: $color-surface;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  text-align: center;
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  
+  h4 {
+    font-family: $font-sans;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: $color-rose-dark;
+    margin: 16px 0 8px;
+  }
+  p {
+    font-size: 14px;
+    color: $text-secondary;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.inspImg {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+  // Subtle premium pink accent
+  border: 3px solid rgba(216, 164, 169, 0.15);
+  padding: 3px;
+  background-color: rgba(216, 164, 169, 0.08);
+  box-shadow: 0 8px 24px rgba(216, 164, 169, 0.15);
+}
+
+.secondaryBtn {
+  background: transparent;
+  color: $color-rose-dark;
+  border: 2px solid $color-rose-primary;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background: rgba(216, 164, 169, 0.1);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ── Services Section ──────────────────────────────
+.servicesSection {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px 60px;
+  overflow: hidden;
+}
+
+.servicesTitle {
+  font-family: $font-serif;
+  font-size: 26px;
+  color: $text-dark;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.serviceCard {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceName {
+  font-size: 16px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 8px;
+}
+
+.serviceDesc {
+  font-size: 14px;
+  color: $text-secondary;
+  margin: 0 0 16px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.serviceMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.servicePrice {
+  font-size: 15px;
+  font-weight: 600;
+  color: $color-rose-deeper;
+}
+
+.serviceDuration {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: $text-muted;
+}
+
+.bottomPad {
+  height: 80px;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

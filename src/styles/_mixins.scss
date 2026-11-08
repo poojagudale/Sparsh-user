@@ -1,0 +1,125 @@
+@use 'variables' as *;
+
+// ── Responsive breakpoints ────────────────────────────────────────
+@mixin mobile {
+  @media (max-width: #{$tablet-bp - 1px}) { @content; }
+}
+@mixin tablet {
+  @media (min-width: #{$tablet-bp}) { @content; }
+}
+@mixin desktop {
+  @media (min-width: #{$desktop-bp}) { @content; }
+}
+@mixin wide {
+  @media (min-width: #{$wide-bp}) { @content; }
+}
+
+// ── Layout helpers ────────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin content-wrap($max: 1200px) {
+  max-width: $max;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $sp-6;
+  padding-right: $sp-6;
+}
+
+// ── Card ──────────────────────────────────────────────────────────
+@mixin card {
+  background: $color-surface;
+  border-radius: $border-radius-card;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-card;
+}
+
+// ── Input ─────────────────────────────────────────────────────────
+@mixin input-base {
+  width: 100%;
+  height: 48px;
+  padding: 0 $sp-4;
+  font-size: 15px;
+  font-family: $font-sans;
+  color: $text-dark;
+  background: $color-rose-lighter;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-input;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  box-sizing: border-box;
+
+  &::placeholder { color: $text-muted; }
+
+  &:focus {
+    border-color: $color-rose-primary;
+    background: $color-surface;
+    box-shadow: 0 0 0 3px rgba(216, 164, 169, 0.22);
+  }
+}
+
+// ── Button base ───────────────────────────────────────────────────
+@mixin btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-2;
+  height: 48px;
+  padding: 0 $sp-8;
+  background: $color-rose-primary;
+  color: $color-surface;
+  border: none;
+  border-radius: $border-radius-button;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(216, 164, 169, 0.35);
+
+  &:hover:not(:disabled) {
+    background: $color-rose-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(216, 164, 169, 0.45);
+  }
+  &:active:not(:disabled) { transform: translateY(0); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+@mixin btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-2;
+  height: 48px;
+  padding: 0 $sp-6;
+  background: $color-surface;
+  color: $text-secondary;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-button;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background: $color-rose-lighter;
+    border-color: $color-rose-primary;
+    color: $text-dark;
+  }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// ── Glassmorphism (legacy, used by landing page) ──────────────────
+@mixin glassmorphism {
+  background: rgba(47, 39, 39, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 16px;
+}

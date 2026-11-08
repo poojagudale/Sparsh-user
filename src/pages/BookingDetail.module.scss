@@ -1,0 +1,228 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// ─────────────────────────────────────────────────────────────────
+// BookingDetail — matches Sparsh service/booking layout
+// ─────────────────────────────────────────────────────────────────
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: $color-bg;
+  text-align: left;
+}
+
+.main {
+  @include content-wrap(1200px);
+  width: 100%;
+  padding-top: 88px;
+  padding-bottom: 40px;
+  flex: 1;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+// ── Header ────────────────────────────────────────────────────────
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: $text-secondary;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0;
+  margin-bottom: 12px;
+  transition: color 0.2s;
+
+  &:hover { color: $text-dark; }
+}
+
+.pageTitle {
+  font-family: $font-serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 4px;
+  text-align: left;
+}
+
+// ── Card ──────────────────────────────────────────────────────────
+.detailCard {
+  background: $color-surface;
+  border-radius: 14px;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-card;
+  padding: 24px;
+
+  @include tablet {
+    padding: 32px;
+  }
+}
+
+.statusRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: $border-radius-chip;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.status-requested { background: #fef3c7; color: #92400e; }
+.status-confirmed { background: #dcfce7; color: #16a34a; }
+.status-rejected  { background: #fee2e2; color: #b91c1c; }
+.status-completed { background: #e0f2fe; color: #0369a1; }
+.status-cancelled { background: #f3f4f6; color: #4b5563; }
+
+// ── Sections ──────────────────────────────────────────────────────
+.section {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+  text-align: left;
+}
+
+.serviceInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.serviceImgWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: $color-rose-lighter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.serviceImg { width: 100%; height: 100%; object-fit: cover; }
+.serviceName {
+  font-family: $font-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0;
+  text-align: left;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  &:last-child { margin-bottom: 0; }
+}
+.infoLabel {
+  color: $text-secondary;
+  font-size: 14px;
+  font-weight: 500;
+}
+.infoValue {
+  color: $text-dark;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.specialRequest {
+  background: $color-rose-lighter;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid $color-border;
+  font-size: 14px;
+  color: $text-dark;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+// ── Actions ───────────────────────────────────────────────────────
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.cancelBtn {
+  @include btn-secondary;
+  color: #dc2626;
+  border-color: #fca5a5;
+  &:hover:not(:disabled) {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #b91c1c;
+  }
+}
+
+.bookAgainBtn {
+  @include btn-primary;
+}
+
+// ── Loading ───────────────────────────────────────────────────────
+.loadingWrap { text-align: center; padding: 60px 0; }
+.spinner {
+  width: 36px; height: 36px; border: 3px solid $color-rose-light;
+  border-top-color: $color-rose-primary; border-radius: 50%;
+  animation: detail-spin 0.7s linear infinite; margin: 0 auto 14px;
+}
+@keyframes detail-spin { to { transform: rotate(360deg); } }
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(254, 242, 242, 0.95);
+  color: #991b1b;
+  border-radius: 14px;
+  border: 1px solid #fca5a5;
+  font-size: 14px;
+}
+
+// ── Bottom padding ────────────────────────────────────────────────
+.bottomPad {
+  height: 72px;
+  @include desktop { height: 0; }
+}

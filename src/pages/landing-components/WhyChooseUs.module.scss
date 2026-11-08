@@ -1,0 +1,141 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.whySection {
+  background: $color-white;
+  padding: 100px 0;
+}
+
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+
+  @include desktop {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 80px;
+  }
+}
+
+.textSection {
+  width: 100%;
+  text-align: center;
+
+  @include desktop {
+    width: 45%;
+    text-align: left;
+  }
+}
+
+.sectionLabel {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $color-rose-gold;
+  letter-spacing: 4px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: $text-dark;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+
+  @include tablet {
+    font-size: 52px;
+  }
+}
+
+.headingDivider {
+  width: 40px;
+  height: 2px;
+  background: $color-rose-gold;
+  margin: 24px auto 32px auto;
+
+  @include desktop {
+    margin: 24px 0 32px 0;
+  }
+}
+
+.description {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+  color: $text-secondary;
+  font-weight: 300;
+}
+
+.featuresGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  @include desktop {
+    width: 50%;
+  }
+}
+
+.featureItem {
+  background: $color-cream-white;
+  padding: 32px 20px;
+  border-radius: 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: $shadow-soft;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.4s ease;
+
+  &:hover {
+    background: $color-white;
+    transform: translateY(-8px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: $color-soft-blush;
+  color: $color-rose-gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: all 0.3s ease;
+
+  .featureItem:hover & {
+    background: $color-rose-gold;
+    color: $color-white;
+  }
+}
+
+.featureTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: $text-dark;
+  margin: 0;
+}

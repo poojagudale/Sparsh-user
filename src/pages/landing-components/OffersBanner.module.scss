@@ -1,0 +1,97 @@
+@use 'sass:color';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.bannerSection {
+  padding: 80px 24px;
+  background: $color-white;
+}
+
+.bannerContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, $color-soft-blush, $color-rose-beige);
+  border-radius: 40px;
+  padding: 70px 40px;
+  text-align: center;
+  box-shadow: $shadow-soft;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: rgba(216, 164, 169, 0.2);
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bannerTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 16px 0;
+
+  @include tablet {
+    font-size: 48px;
+  }
+}
+
+.bannerSubtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  color: $text-secondary;
+  margin: 0 0 40px 0;
+  font-weight: 300;
+  max-width: 600px;
+
+  @include tablet {
+    font-size: 19px;
+  }
+}
+
+.ctaBtn {
+  background: $text-dark;
+  color: $color-white;
+  border: none;
+  padding: 16px 48px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: $border-radius-button;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(58, 47, 47, 0.2);
+  transition: all 0.4s ease;
+
+  &:hover {
+    background: color.adjust($text-dark, $lightness: 10%);
+    box-shadow: 0 12px 30px rgba(58, 47, 47, 0.3);
+    transform: translateY(-2px);
+  }
+}

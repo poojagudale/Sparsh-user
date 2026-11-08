@@ -1,0 +1,86 @@
+// ─────────────────────────────────────────────────────────────────
+// Sparsh Design Tokens  — single source of truth
+// Primary palette:  soft dusty-rose (#D8A4A9) + warm whites + dark rose text
+// ─────────────────────────────────────────────────────────────────
+
+// ── Raw named colours ─────────────────────────────────────────────
+$color-rose-primary:   #D8A4A9;   // primary brand / buttons / active
+$color-rose-dark:      #B07A80;   // hover on primary (manually darkened ~12%)
+$color-rose-deeper:    #9A6068;   // pressed / strong accent
+$color-rose-light:     #F5DADE;   // soft fills, icon backgrounds
+$color-rose-lighter:   #FFF0F5;   // input backgrounds, section tints
+$color-rose-faintest:  #FFF8FA;   // page background variant
+
+$color-bg:             #FFFDFD;   // primary page background
+$color-surface:        #FFFFFF;   // card / modal surfaces
+
+$color-dark:           #3B2A2C;   // headings, logo, strong text
+$color-secondary-text: #705C60;   // body text, subtitles
+$color-muted:          #9C8285;   // placeholders, helper text
+$color-border:         #E8D4D7;   // form borders, card borders, dividers
+
+// ── Legacy aliases kept for backward compat with landing-page SCSS ─
+// (landing components still use these; do not remove)
+$color-soft-blush:     #F5DADE;
+$color-warm-baby:      #FADADD;
+$color-cream-white:    #FFF8F9;
+$color-rose-beige:     #F7E6E7;
+$color-light-lavender: #EEE7F8;
+$color-rose-gold:      #D8A4A9;   // same as primary
+$color-dark-brown:     #3B2A2C;   // same as dark
+
+$color-pink-primary:   #D8A4A9;   // remapped to spec primary
+$color-pink-dark:      #B07A80;   // remapped to rose-dark
+$color-pink-light:     #F5DADE;
+$color-pink-lighter:   #FFF0F5;
+$color-warm-white:     #FFFDFD;
+$color-white:          #FFFFFF;
+$color-dark-charcoal:  #3B2A2C;
+$color-muted-text:     #9C8285;
+$color-border-light:   #E8D4D7;
+
+// ── Semantic aliases (use these everywhere in new code) ────────────
+$primary-color:        $color-rose-primary;
+$primary-hover:        $color-rose-dark;
+$secondary-color:      $color-rose-light;
+$background-light:     $color-bg;
+$surface-light:        $color-surface;
+$text-dark:            $color-dark;
+$text-secondary:       $color-secondary-text;
+$text-muted:           $color-muted;
+$accent-color:         $color-rose-primary;
+$input-bg:             $color-rose-lighter;
+
+// ── Shape ─────────────────────────────────────────────────────────
+$border-radius-card:   18px;
+$border-radius-button: 10px;
+$border-radius-input:  10px;
+$border-radius-chip:   50px;
+
+// ── Elevation ─────────────────────────────────────────────────────
+$shadow-soft:  0 2px 12px rgba(59, 42, 44, 0.06);
+$shadow-card:  0 4px 20px rgba(59, 42, 44, 0.08);
+$shadow-hover: 0 8px 28px rgba(59, 42, 44, 0.13);
+$shadow-nav:   0 2px 16px rgba(59, 42, 44, 0.07);
+
+// ── Spacing scale ─────────────────────────────────────────────────
+$sp-1:  4px;
+$sp-2:  8px;
+$sp-3:  12px;
+$sp-4:  16px;
+$sp-5:  20px;
+$sp-6:  24px;
+$sp-8:  32px;
+$sp-10: 40px;
+$sp-12: 48px;
+$sp-16: 64px;
+
+// ── Typography ────────────────────────────────────────────────────
+$font-serif: 'Playfair Display', Georgia, serif;
+$font-sans:  'Poppins', system-ui, sans-serif;
+
+// ── Breakpoints ───────────────────────────────────────────────────
+$mobile-bp:  480px;
+$tablet-bp:  768px;
+$desktop-bp: 1024px;
+$wide-bp:    1280px;

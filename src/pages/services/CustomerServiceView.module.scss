@@ -1,0 +1,536 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ─────────────────────────────────────────────────────────────────
+// CustomerServiceView — portrait 3:4 cards, 4-col desktop CSS grid
+// ─────────────────────────────────────────────────────────────────
+
+// ── Page shell ────────────────────────────────────────────────────
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: $color-bg;
+}
+
+.main {
+  @include content-wrap(1200px);
+  padding-top: 88px;   // navbar clearance
+  padding-bottom: 40px;
+}
+
+// ── Page header ───────────────────────────────────────────────────
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  @include tablet {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.pageTitle {
+  font-family: $font-serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 4px;
+  text-align: left; // PRD v2/v3 — global left-align rule (final close-out)
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: $text-muted;
+  margin: 0;
+  line-height: 1.5;
+  text-align: left; // PRD v2/v3 — global left-align rule (final close-out)
+}
+
+// ── Search bar ────────────────────────────────────────────────────
+.searchBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 280px;
+  flex-shrink: 0;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 13px;
+  color: $text-muted;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  height: 40px;
+  padding: 0 36px 0 40px;
+  font-size: 13px;
+  font-family: $font-sans;
+  color: $text-dark;
+  background: $color-surface;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-chip;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+
+  &::placeholder { color: $text-muted; }
+
+  &:focus {
+    border-color: $color-rose-primary;
+    box-shadow: 0 0 0 3px rgba(216, 164, 169, 0.18);
+  }
+}
+
+.clearSearch {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $text-muted;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  line-height: 0;
+
+  &:hover {
+    color: $text-dark;
+    background: $color-rose-light;
+  }
+}
+
+// ── Filter chips ──────────────────────────────────────────────────
+.filterRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.filterChip {
+  height: 34px;
+  padding: 0 18px;
+  border-radius: $border-radius-chip;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: $font-sans;
+  cursor: pointer;
+  border: 1.5px solid $color-border;
+  background: $color-surface;
+  color: $text-secondary;
+  transition: all 0.2s;
+  line-height: 1;
+
+  &:hover:not(.chipActive) {
+    background: $color-rose-lighter;
+    border-color: $color-rose-primary;
+    color: $color-rose-deeper;
+  }
+
+  &.chipActive {
+    background: $color-rose-primary;
+    border-color: $color-rose-primary;
+    color: $color-surface;
+    font-weight: 600;
+  }
+}
+
+// ── Error box ─────────────────────────────────────────────────────
+.errorBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(254, 242, 242, 0.95);
+  color: #991b1b;
+  border-radius: 14px;
+  border: 1px solid #fca5a5;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.retryBtn {
+  margin-left: auto;
+  padding: 5px 14px;
+  background: none;
+  border: 1.5px solid #f87171;
+  border-radius: 8px;
+  color: #991b1b;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+
+  &:hover { background: rgba(248, 113, 113, 0.1); }
+}
+
+// ── Services grid — CSS Grid, NOT flex ────────────────────────────
+// Mobile  < 768px : 2 columns
+// Tablet  768–1199px : 2–3 columns
+// Desktop ≥ 1200px : 4 columns  (exact per PRD)
+//
+// All gap values are equal horizontal + vertical (24px desktop, 16px mobile)
+.grid {
+  display: grid;
+  gap: 16px;
+
+  // Mobile default: 2 columns so cards are visible without huge blank space
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: 440px) {
+    grid-template-columns: 1fr;
+  }
+
+  @include tablet {
+    // 768–1023: 3 columns
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @include desktop {
+    // 1024+: 4 columns, 24px gutters as per PRD
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+// ── Service card — portrait 3:4 ───────────────────────────────────
+// Structure: full card is a flex column.
+// Image block = flex 1 (takes remaining height after info block).
+// Info block = fixed height at bottom.
+// Card itself uses aspect-ratio 3/4 to enforce portrait shape.
+.card {
+  background: $color-surface;
+  border-radius: 14px;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-soft;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  // Enforce 3:4 portrait aspect ratio on the entire card
+  aspect-ratio: 3 / 4;
+
+  // Hover: scale-up + elevated shadow (PRD §5.1)
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+
+  &:hover {
+    transform: scale(1.025);
+    box-shadow: $shadow-hover;
+  }
+}
+
+// ── Image block — top ~72% of card ───────────────────────────────
+.imageWrapper {
+  position: relative;
+  flex: 1 1 0;          // fills available space above the info block
+  overflow: hidden;
+  background: $color-rose-lighter;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    // fills frame edge-to-edge, center-crop, no distortion
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+
+  // Subtle zoom on card hover
+  .card:hover & { transform: scale(1.04); }
+}
+
+// Gradient overlay at the bottom of the image for badge legibility
+.imageGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 55%,
+    rgba(59, 42, 44, 0.45) 100%
+  );
+  pointer-events: none;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: $color-rose-primary;
+  background: linear-gradient(135deg, $color-rose-lighter 0%, $color-rose-light 100%);
+}
+
+.placeholderIcon {
+  opacity: 0.7;
+}
+
+.placeholderLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: $color-rose-deeper;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+// "Available" badge — sits on the image, top-right corner
+.activeBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(34, 197, 94, 0.88);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: $border-radius-chip;
+  backdrop-filter: blur(6px);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+// ── Info block — bottom ~28% of card ─────────────────────────────
+.cardBody {
+  flex: 0 0 auto;
+  padding: 12px 14px 14px;
+  background: $color-surface;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.serviceName {
+  font-family: $font-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0;
+  line-height: 1.25;
+
+  // Single-line truncation so all cards stay uniform height
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.serviceDesc {
+  font-size: 12px;
+  color: $text-muted;
+  margin: 0;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.price {
+  font-size: 15px;
+  font-weight: 700;
+  color: $color-rose-primary;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: $text-muted;
+  font-weight: 500;
+}
+
+.bookNowBtn {
+  @include btn-primary;
+  margin-top: 10px;
+  width: 100%;
+  height: 32px;
+  font-size: 12px;
+  padding: 0;
+}
+
+// ── Skeleton — matches portrait 3:4 card exactly ─────────────────
+.skeleton {
+  background: $color-surface;
+  border-radius: 14px;
+  border: 1px solid $color-border;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 3 / 4;
+}
+
+.skeletonImg {
+  flex: 1 1 0;
+}
+
+.skeletonBody {
+  flex: 0 0 auto;
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonLine {
+  height: 13px;
+  border-radius: 6px;
+  width: 55%;
+}
+
+.skeletonLineWide {
+  width: 75%;
+  height: 16px;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    $color-border      25%,
+    $color-rose-lighter 50%,
+    $color-border      75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+// ── Empty state ───────────────────────────────────────────────────
+.emptyState {
+  text-align: center;
+  padding: 72px 24px;
+}
+
+.emptyIcon {
+  width: 72px;
+  height: 72px;
+  background: $color-rose-light;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-rose-primary;
+  margin: 0 auto 18px;
+}
+
+.emptyTitle {
+  font-size: 16px;
+  color: $text-muted;
+  margin: 0 0 18px;
+  line-height: 1.5;
+}
+
+.clearSearchBtn {
+  height: 38px;
+  padding: 0 22px;
+  background: $color-rose-light;
+  color: $color-rose-deeper;
+  border: none;
+  border-radius: $border-radius-button;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: $font-sans;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: $color-rose-primary;
+    color: $color-surface;
+  }
+}
+
+// ── Bottom padding (footer tabs on all devices) ───────────────────
+.bottomPad {
+  height: 80px;
+  flex-shrink: 0;
+}
+
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+// ── Modal Styles ───────────────────────────────────────────────────
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(59, 42, 44, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalContent {
+  background: $color-surface;
+  border-radius: $border-radius-card;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(59, 42, 44, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: $color-rose-lighter;
+  color: $color-rose-deeper;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  font-family: $font-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 12px;
+}
+
+.modalText {
+  font-size: 14px;
+  color: $text-secondary;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.modalBtn {
+  @include btn-primary;
+  width: 100%;
+}
+
